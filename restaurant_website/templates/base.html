@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Restaurant{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-wrap">
+        <a href="{{ url_for('home') }}" class="brand">Restaurant</a>
+        <nav class="nav">
+          <a href="{{ url_for('menu') }}">Menu</a>
+          <a href="{{ url_for('reserve') }}">Reserve</a>
+          <a href="{{ url_for('waitlist') }}">Waitlist</a>
+          <a href="{{ url_for('admin') }}">Admin</a>
+          <a href="{{ url_for('about') }}">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container main-content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-stack">
+            {% for category, message in messages %}
+              <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>Restaurant Demo</strong>
+          <p></p>
+        </div>
+        <div>
+          <p>Hours: Mon-Sun 11:00 AM - 10:00 PM</p>
+          <p>Phone: (555) 987-6543</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Reserve | TableFlow{% endblock %}
+{% block content %}
+<section class="section-head">
+  <p class="eyebrow">Reservations</p>
+  <h1>Book a table</h1>
+</section>
+
+<form class="card form-grid" method="post">
+  <label>
+    Full name
+    <input type="text" name="customer_name" required>
+  </label>
+  <label>
+    Email
+    <input type="email" name="email" required>
+  </label>
+  <label>
+    Phone
+    <input type="tel" name="phone" required>
+  </label>
+  <label>
+    Party size
+    <input type="number" name="party_size" min="1" max="12" value="2" required>
+  </label>
+  <label>
+    Reservation time
+    <input type="datetime-local" name="reservation_time" required>
+  </label>
+  <label class="full-width">
+    Notes
+    <textarea name="notes" rows="4" placeholder="High chair, birthday, accessibility request..."></textarea>
+  </label>
+  <button class="btn primary" type="submit">Create reservation</button>
+</form>
+{% endblock %}

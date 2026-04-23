@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Menu | TableFlow{% endblock %}
+{% block content %}
+<section class="section-head">
+  <p class="eyebrow">Dining</p>
+  <h1>Menu</h1>
+  <p class="lead">Browse the restaurant menu by category.</p>
+</section>
+
+<div class="filter-row card">
+  <label for="categoryFilter">Filter by category</label>
+  <select id="categoryFilter">
+    <option value="all">All</option>
+    {% for category in categories %}
+      <option value="{{ category }}">{{ category }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="menu-grid">
+  {% for item in menu_items %}
+    <article class="card menu-card" data-category="{{ item.category }}">
+      <div class="menu-header">
+        <div>
+          <p class="chip">{{ item.category }}</p>
+          <h3>{{ item.name }}</h3>
+        </div>
+        <strong>${{ '%.2f'|format(item.price) }}</strong>
+      </div>
+      <p>{{ item.description }}</p>
+      {% if item.is_popular %}
+        <span class="badge">Popular</span>
+      {% endif %}
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}

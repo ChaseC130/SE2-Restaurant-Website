@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title %}Admin | TableFlow{% endblock %}
+{% block content %}
+<section class="section-head">
+  <p class="eyebrow">Operations</p>
+  <h1>Admin dashboard</h1>
+  <p class="lead">Use this page to manage tables, seat parties, and simulate the restaurant flow.</p>
+</section>
+
+<div class="button-row admin-actions">
+  <form method="post" action="{{ url_for('auto_seat') }}">
+    <button class="btn primary" type="submit">Auto-seat waitlist</button>
+  </form>
+  <form method="post" action="{{ url_for('reset_demo') }}">
+    <button class="btn danger" type="submit">Reset demo data</button>
+  </form>
+</div>
+
+<section class="grid-2 section-gap">
+  <div class="card">
+    <h2>Dining Tables</h2>
+    <div class="table-grid">
+      {% for table in tables %}
+      <div class="table-card {{ table.status|lower }}">
+        <strong>{{ table.name }}</strong>
+        <p>Seats {{ table.capacity }}</p>
+        <p>Status: {{ table.status }}</p>
+        {% if table.current_party_name %}
+          <p>Party: {{ table.current_party_name }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reservations</h2>
+    <div class="stack-list">
+      {% for reservation in reservations %}
+      <div class="admin-row">
+        <div>
+          <strong>{{ reservation.customer_name }}</strong>
+          <p>{{ reservation.reservation_time.replace('T', ' ') }} · Party of {{ reservation.party_size }} · {{ reservation.status }}</p>
+        </div>
+        <div class="button-row compact">
+          {% if reservation.status == 'Booked' %}
+          <form method="post" action="{{ url_for('seat_reservation', reservation_id=reservation.id) }}">
+            <button class="btn secondary" type="submit">Seat</button>
+          </form>
+          {% endif %}
+          {% if reservation.status == 'Seated' %}
+          <form method="post" action="{{ url_for('complete_reservation', reservation_id=reservation.id) }}">
+            <button class="btn ghost" type="submit">Complete</button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+      <p>No reservations found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="card section-gap">
+  <h2>Waitlist</h2>
+  <div class="stack-list">
+    {% for group in waitlist_groups %}
+    <div class="admin-row">
+      <div>
+        <strong>{{ group.customer_name }}</strong>
+        <p>Party of {{ group.party_size }} · {{ group.status }} · Quoted {{ group.quoted_wait_min }} min</p>
+      </div>
+      {% if group.status == 'Seated' %}
+      <form method="post" action="{{ url_for('complete_waitlist', waitlist_id=group.id) }}">
+        <button class="btn ghost" type="submit">Complete</button>
+      </form>
+      {% endif %}
+    </div>
+    {% else %}
+    <p>No waitlist groups found.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

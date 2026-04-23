@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Home | TableFlow{% endblock %}
+{% block content %}
+<section class="hero card hero-card">
+  <div>
+    <p class="eyebrow">Restaurant Website</p>
+    <h1>Fast reservations, a live waitlist, and a simple seating dashboard.</h1>
+    <p class="lead">This demo is designed for a smaller restaurant that wants a clean, quick website with minimal cost and simple local hosting.</p>
+    <div class="button-row">
+      <a class="btn primary" href="{{ url_for('reserve') }}">Book a Table</a>
+      <a class="btn secondary" href="{{ url_for('menu') }}">View Menu</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <span class="stat-label">Current quoted wait</span>
+      <strong>{{ current_wait }} min</strong>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Popular dishes</span>
+      <strong>{{ popular_items|length }}</strong>
+    </div>
+  </div>
+</section>
+
+<section class="grid-2 section-gap">
+  <div class="card">
+    <h2>Popular Menu Items</h2>
+    <div class="stack-list">
+      {% for item in popular_items %}
+      <div class="list-row">
+        <div>
+          <strong>{{ item.name }}</strong>
+          <p>{{ item.description }}</p>
+        </div>
+        <span>${{ '%.2f'|format(item.price) }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Upcoming Reservations</h2>
+    <div class="stack-list">
+      {% for reservation in upcoming_reservations %}
+      <div class="list-row">
+        <div>
+          <strong>{{ reservation.customer_name }}</strong>
+          <p>Party of {{ reservation.party_size }}</p>
+        </div>
+        <span>{{ reservation.reservation_time.replace('T', ' ') }}</span>
+      </div>
+      {% else %}
+      <p>No reservations yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Waitlist | TableFlow{% endblock %}
+{% block content %}
+<section class="grid-2">
+  <form class="card form-grid" method="post">
+    <div class="full-width">
+      <p class="eyebrow">Walk-in</p>
+      <h1>Join the waitlist</h1>
+    </div>
+    <label>
+      Full name
+      <input type="text" name="customer_name" required>
+    </label>
+    <label>
+      Phone
+      <input type="tel" name="phone" required>
+    </label>
+    <label>
+      Party size
+      <input type="number" name="party_size" min="1" max="12" value="2" required>
+    </label>
+    <div class="full-width">
+      <button class="btn primary" type="submit">Add to waitlist</button>
+    </div>
+  </form>
+
+  <div class="card">
+    <p class="eyebrow">Live queue</p>
+    <h2>Current waitlist</h2>
+    <div class="stack-list">
+      {% for group in waiting_groups %}
+      <div class="list-row">
+        <div>
+          <strong>{{ group.customer_name }}</strong>
+          <p>Party of {{ group.party_size }} · {{ group.status }}</p>
+        </div>
+        <span>{{ group.quoted_wait_min }} min</span>
+      </div>
+      {% else %}
+      <p>No groups are waiting right now.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

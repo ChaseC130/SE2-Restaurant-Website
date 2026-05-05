@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="page-head between"><div><h1>Admin Dashboard</h1><p>Manage seating, waitlist, reservations, and orders.</p></div><a class="button" href="{{ url_for('admin_menu') }}">Edit Menu</a></div>
+<section class="card"><h2>Seating Chart</h2><div class="table-grid">
+{% for t in tables %}
+  <div class="table-card {{ t.status }}">
+    <strong>{{ t.label }}</strong><span>Seats {{ t.capacity }}</span><span>{{ t.status }}</span>
+    {% if t.current_party_name %}<small>{{ t.current_party_name }} until {{ t.seated_until }}</small>{% endif %}
+    {% if t.status == 'occupied' %}<form method="post" action="{{ url_for('free_table', table_id=t.id) }}"><button class="small-btn">Free Table</button></form>{% endif %}
+  </div>
+{% endfor %}
+</div></section>
+<div class="grid two">
+<section class="card"><h2>Reservations</h2><div class="scroll-list">
+{% for r in reservations %}
+  <div class="list-row"><div><strong>{{ r.customer_name }}</strong><br><small>{{ r.reservation_time }} · party {{ r.party_size }} · {{ r.status }} {% if r.table_label %}· {{ r.table_label }}{% endif %}</small></div>
+  {% if r.status == 'booked' %}<form method="post" action="{{ url_for('seat_reservation', reservation_id=r.id) }}"><button class="small-btn">Seat</button></form>{% endif %}</div>
+{% else %}<p>No reservations.</p>{% endfor %}
+</div></section>
+<section class="card"><h2>Waitlist</h2><div class="scroll-list">
+{% for w in waiting %}<div class="list-row"><div><strong>{{ w.customer_name }}</strong><br><small>party {{ w.party_size }} · est. {{ w.estimated_wait }} min · {{ w.status }} {% if w.table_label %}· {{ w.table_label }}{% endif %}</small></div></div>{% else %}<p>No waitlist entries.</p>{% endfor %}
+</div></section>
+</div>
+<section class="card"><h2>Recent Orders</h2>
+{% for o in orders %}
+  <div class="list-row"><div><strong>Order #{{ o.id }}</strong><br><small>{{ o.customer_name }} · ${{ '%.2f'|format(o.total) }} · {{ o.status }}</small></div>
+  <form method="post" action="{{ url_for('update_order_status', order_id=o.id) }}"><select name="status"><option>received</option><option>preparing</option><option>ready</option><option>completed</option><option>cancelled</option></select><button class="small-btn">Update</button></form></div>
+{% else %}<p>No orders.</p>{% endfor %}
+</section>
+{% endblock %}

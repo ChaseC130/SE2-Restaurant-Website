@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}My Account{% endblock %}
+{% block content %}
+<div class="page-head"><h1>My Account</h1><p>{{ user.name }} · {{ user.email }} · {% if user.email_confirmed %}Email confirmed{% else %}Email not confirmed{% endif %}</p></div>
+<div class="grid two">
+  <section class="card"><h2>My Reservations</h2>
+  {% for r in reservations %}<p><strong>#{{ r.id }}</strong> {{ r.reservation_time }} · party of {{ r.party_size }} · {{ r.status }}</p>{% else %}<p>No reservations yet.</p>{% endfor %}
+  </section>
+  <section class="card"><h2>My Orders</h2>
+  {% for o in orders %}<p><strong>#{{ o.id }}</strong> ${{ '%.2f'|format(o.total) }} · {{ o.status }} · {{ o.created_at }}</p>{% else %}<p>No orders yet.</p>{% endfor %}
+  </section>
+</div>
+{% endblock %}

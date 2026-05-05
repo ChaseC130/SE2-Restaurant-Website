@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Reserve{% endblock %}
+{% block content %}
+<div class="form-card wide">
+  <h1>Make a Reservation</h1>
+  <form method="post" class="two-col">
+    <label>Name <input name="name" value="{{ user.name if user else '' }}" required></label>
+    <label>Email <input type="email" name="email" value="{{ user.email if user else '' }}" required></label>
+    <label>Phone <input name="phone" required></label>
+    <label>Party Size <input type="number" name="party_size" min="1" max="12" required></label>
+    <label>Reservation Time <input type="datetime-local" name="reservation_time" required></label>
+    <div></div>
+    <button class="button" type="submit">Confirm Reservation</button>
+  </form>
+</div>
+{% endblock %}

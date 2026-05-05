@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Order Online{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Order Online</h1><p>Select quantities, enter contact info, and submit a pickup order.</p></div>
+<form method="post" class="order-layout">
+  <section class="card">
+    <h2>Customer Info</h2>
+    <label>Name <input name="name" value="{{ user.name if user else '' }}" required></label>
+    <label>Email <input type="email" name="email" value="{{ user.email if user else '' }}" required></label>
+    <label>Phone <input name="phone" required></label>
+    <label>Order Type
+      <select name="order_type"><option value="pickup">Pickup</option><option value="dine-in">Dine-in</option></select>
+    </label>
+  </section>
+  <section class="card">
+    <h2>Items</h2>
+    {% for item in items %}
+      <div class="order-row">
+        <div><strong>{{ item.name }}</strong><br><small>${{ '%.2f'|format(item.price) }} · {{ item.category }}</small></div>
+        <input type="number" name="qty_{{ item.id }}" value="0" min="0" max="20">
+      </div>
+    {% endfor %}
+    <button class="button" type="submit">Place Order</button>
+  </section>
+</form>
+{% endblock %}

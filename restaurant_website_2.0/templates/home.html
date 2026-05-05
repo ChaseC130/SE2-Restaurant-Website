@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home · Restaurant Website{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Fast local restaurant management</p>
+    <h1>Reservations, online orders, seating, and wait times.</h1>
+    <p class="lead">This website supports customer accounts, ordering, reservations, a wait-list, and staff seating tools.</p>
+    <div class="actions">
+      <a class="button" href="{{ url_for('order') }}">Order Online</a>
+      <a class="button secondary" href="{{ url_for('reserve') }}">Make Reservation</a>
+    </div>
+  </div>
+  <div class="stats-card">
+    <h3>Live Demo Status</h3>
+    <p><strong>{{ stats.available_tables }}</strong> tables available</p>
+    <p><strong>{{ stats.active_waitlist }}</strong> waiting parties</p>
+    <p><strong>{{ stats.menu_count }}</strong> menu items</p>
+  </div>
+</section>
+<section class="grid three">
+  <article class="card"><h3>Customers</h3><p>Create an account, confirm email locally, place pickup orders, and view order history.</p></article>
+  <article class="card"><h3>Staff</h3><p>Authenticated admin tools protect menu editing, seating logic, and order status management.</p></article>
+  <article class="card"><h3>Operations</h3><p>Improved wait estimates use party size, current tables, occupied tables, and queue length.</p></article>
+</section>
+{% endblock %}

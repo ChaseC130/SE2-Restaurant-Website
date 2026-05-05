@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Waitlist{% endblock %}
+{% block content %}
+<div class="form-card wide">
+  <h1>Join the Waitlist</h1>
+  <p class="muted">Wait estimate now considers party size, available tables, occupied fitting tables, and queue length.</p>
+  <form method="post" class="two-col">
+    <label>Name <input name="name" required></label>
+    <label>Email <input type="email" name="email" required></label>
+    <label>Phone <input name="phone" required></label>
+    <label>Party Size <input type="number" name="party_size" min="1" max="12" required></label>
+    <button class="button" type="submit">Get Estimate</button>
+  </form>
+  {% if estimated is not none %}<div class="estimate">Estimated wait: <strong>{{ estimated }} minutes</strong></div>{% endif %}
+</div>
+{% endblock %}

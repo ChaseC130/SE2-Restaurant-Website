@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Menu{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Menu</h1><p>Browse available items by category.</p></div>
+<div class="filters">
+  <button class="chip active" data-filter="all">All</button>
+  {% for category in categories %}<button class="chip" data-filter="{{ category }}">{{ category }}</button>{% endfor %}
+</div>
+<div class="grid menu-grid">
+{% for item in items %}
+  <article class="card menu-item" data-category="{{ item.category }}">
+    <div class="between"><h3>{{ item.name }}</h3><span class="price">${{ '%.2f'|format(item.price) }}</span></div>
+    <p>{{ item.description }}</p>
+    <small>{{ item.category }}{% if item.is_popular %} · Popular{% endif %}</small>
+  </article>
+{% endfor %}
+</div>
+{% endblock %}

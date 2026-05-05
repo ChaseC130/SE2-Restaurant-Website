@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="form-card">
+  <h1>Login</h1>
+  <form method="post">
+    <label>Email <input type="email" name="email" required></label>
+    <label>Password <input type="password" name="password" required></label>
+    <button class="button" type="submit">Login</button>
+  </form>
+  <p class="muted">Admin demo login: admin@example.com / admin123</p>
+</div>
+{% endblock %}

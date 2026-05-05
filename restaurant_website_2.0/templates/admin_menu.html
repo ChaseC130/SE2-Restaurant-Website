@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Admin Menu{% endblock %}
+{% block content %}
+<div class="page-head between"><div><h1>Edit Menu</h1><p>Admin-only menu management.</p></div><a class="button" href="{{ url_for('admin_menu_new') }}">Add Item</a></div>
+<section class="card">
+<table class="data-table"><thead><tr><th>Name</th><th>Category</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody>
+{% for item in items %}
+<tr><td>{{ item.name }}</td><td>{{ item.category }}</td><td>${{ '%.2f'|format(item.price) }}</td><td>{% if item.is_available %}Available{% else %}Hidden{% endif %}</td><td class="table-actions"><a class="small-btn" href="{{ url_for('admin_menu_edit', item_id=item.id) }}">Edit</a><form method="post" action="{{ url_for('admin_menu_delete', item_id=item.id) }}" onsubmit="return confirm('Delete this item?')"><button class="small-btn danger">Delete</button></form></td></tr>
+{% endfor %}
+</tbody></table>
+</section>
+{% endblock %}

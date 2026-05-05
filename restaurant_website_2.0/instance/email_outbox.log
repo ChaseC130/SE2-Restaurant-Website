@@ -1,0 +1,41 @@
+
+======================================================================
+Time: 2026-05-05T19:14:56
+To: admin@example.com
+Subject: Reservation confirmation
+
+Hi Admin User,
+
+Your reservation for 5 at 2026-05-05T19:14 is confirmed.
+Assigned table: T5
+Reservation #1
+
+======================================================================
+Time: 2026-05-05T19:16:31
+To: admin@example.com
+Subject: Order confirmation
+
+Hi Admin User,
+
+Your pickup order #1 was received.
+Total: $25.42
+Estimated pickup time: 20-30 minutes.
+
+======================================================================
+Time: 2026-05-05T19:17:12
+To: chase@example.com
+Subject: Waitlist confirmation
+
+Hi chase,
+
+You are on the waitlist. Estimated wait: 0 minutes.
+
+======================================================================
+Time: 2026-05-05T19:31:00
+To: chase@example.com
+Subject: Confirm your restaurant account
+
+Welcome, chase!
+
+Confirm your account here:
+http://127.0.0.1:5000/confirm/D6z5Y2jV82Hg-H6WWKYM_2tCa8WdNwGo

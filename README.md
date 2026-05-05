@@ -16,6 +16,7 @@ set SECRET_KEY=change-this-secret
 
 From the project folder:
 
+virtual enviroment is not necessary if it causes problems
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
